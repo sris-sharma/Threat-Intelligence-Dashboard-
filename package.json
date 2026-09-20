@@ -1,0 +1,25 @@
+{
+  "name": "ioc-aggregator",
+  "version": "1.0.0",
+  "description": "An end-to-end fully developed IOC Aggregator Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "ioc",
+    "threat-intel",
+    "phishing",
+    "scam",
+    "whois"
+  ],
+  "author": "Antigravity",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "localtunnel": "^2.0.2"
+  }
+}

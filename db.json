@@ -1,0 +1,34 @@
+{
+  "knownFraud": [
+    {
+      "pattern": "example-bank-verify.com",
+      "riskScore": 95,
+      "reason": "Known banking credential phishing domain"
+    },
+    {
+      "pattern": "refund-tax-support.in",
+      "riskScore": 98,
+      "reason": "Reported tax refund scam portal"
+    },
+    {
+      "pattern": "secure-login-netpoint.net",
+      "riskScore": 90,
+      "reason": "Known account credential harvesting site"
+    },
+    {
+      "pattern": "covid-booster-support.org",
+      "riskScore": 85,
+      "reason": "Phishing campaign impersonating health agency"
+    }
+  ],
+  "verifiedSafe": [
+    "google.com",
+    "github.com",
+    "microsoft.com",
+    "apple.com",
+    "amazon.com",
+    "wikipedia.org",
+    "youtube.com",
+    "netflix.com"
+  ]
+}
