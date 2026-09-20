@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkShield — Link Fraud & Threat Detection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-brand">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M12 8v4"/>
+          <path d="M12 16h.01"/>
+        </svg>
+        <span>Link<strong>Shield</strong></span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#scanner">Scanner</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#phishing-signs">Phishing Signs</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <a href="#scanner" class="btn-nav">Scan Link</a>
+    </div>
+  </header>
+
+  <!-- Hero & Scanner Section -->
+  <section id="scanner" class="hero-section">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span>Real-Time Fraud &amp; Risk Detection</span>
+      </div>
+      <h1 class="hero-title">Inspect Any Link Before You Click</h1>
+      <p class="hero-subtitle">
+        Protect your accounts and personal data. Instantly check if a website, SMS link, or email URL is safe, suspicious, or an outright fraud attempt.
+      </p>
+
+      <!-- Main Scanner Card -->
+      <div class="scanner-card">
+        <form id="check-form" class="scanner-form">
+          <div class="input-group">
+            <svg class="search-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input 
+              type="text" 
+              id="link-input" 
+              placeholder="Paste any link or domain (e.g., https://example.com)..." 
+              autocomplete="off"
+              required
+            >
+            <button type="submit" id="check-btn" class="btn-scan">
+              <span>Scan Link</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Example Link Pills -->
+        <div class="sample-links">
+          <span class="sample-label">Try an example:</span>
+          <button type="button" class="pill pill-safe sample-btn" data-url="https://google.com">google.com (Safe)</button>
+          <button type="button" class="pill pill-fraud sample-btn" data-url="http://refund-tax-support.in/pay.html">refund-tax.in (Fraud)</button>
+          <button type="button" class="pill pill-suspicious sample-btn" data-url="http://secure-login-account.xyz">secure-login.xyz (Suspicious)</button>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading" class="loading-state hidden">
+          <div class="spinner"></div>
+          <span>Analyzing security parameters &amp; reputation...</span>
+        </div>
+
+        <!-- Results Display Box -->
+        <div id="result-box" class="result-box hidden">
+          
+          <div class="result-top-bar">
+            <div class="url-info">
+              <span class="url-label">Analyzed Link:</span>
+              <span class="url-text" id="result-url"></span>
+            </div>
+            <div class="verdict-tag" id="result-badge">Safe</div>
+          </div>
+
+          <!-- Score & Indicator Highlights -->
+          <div class="result-metrics-grid">
+            
+            <div class="metric-gauge-card">
+              <span class="metric-gauge-title">Calculated Risk Score</span>
+              <div class="gauge-display">
+                <span class="gauge-number" id="score-text">0</span>
+                <span class="gauge-max">/ 100</span>
+              </div>
+              <div class="gauge-bar-bg">
+                <div id="progress-bar-fill" class="gauge-bar-fill" style="width: 0%;"></div>
+              </div>
+              <span class="gauge-hint" id="gauge-hint">Low probability of fraud</span>
+            </div>
+
+            <!-- 4 Structured Indicators -->
+            <div class="indicators-subgrid">
+              
+              <div class="indicator-box" id="ind-protocol">
+                <span class="ind-label">Connection</span>
+                <strong class="ind-val" id="val-protocol">-</strong>
+              </div>
+
+              <div class="indicator-box" id="ind-tld">
+                <span class="ind-label">Domain Extension</span>
+                <strong class="ind-val" id="val-tld">-</strong>
+              </div>
+
+              <div class="indicator-box" id="ind-keywords">
+                <span class="ind-label">Phishing Signals</span>
+                <strong class="ind-val" id="val-keywords">-</strong>
+              </div>
+
+              <div class="indicator-box" id="ind-database">
+                <span class="ind-label">Threat Database</span>
+                <strong class="ind-val" id="val-database">-</strong>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Detailed Explanation List -->
+          <div class="reasons-card">
+            <h4>Key Findings &amp; Safety Reasoning</h4>
+            <ul id="reasons-list"></ul>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">Architecture</span>
+        <h2>How LinkShield Evaluates Links</h2>
+        <p>Every submitted link undergoes multi-layer heuristic scanning to detect malicious intent before you become a victim.</p>
+      </div>
+
+      <div class="cards-grid">
+        <div class="feature-card">
+          <div class="card-icon ci-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Heuristic Keyword Signals</h3>
+          <p>Flags deceptive terminology such as urgent verification, fake banking alerts, lottery cashback, and credential login requests.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon ci-indigo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <h3>SSL &amp; Protocol Integrity</h3>
+          <p>Identifies insecure HTTP connections and bare IP addresses that legitimate organizations never use for customer interactions.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon ci-purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <h3>Abused TLD Reputation</h3>
+          <p>Monitors top-level extensions (such as .xyz, .top, .info) frequently registered by automated scammers due to low barrier pricing.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon ci-teal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3>Known Threat Intelligence</h3>
+          <p>Cross-references persistent indicator databases for confirmed fraud campaigns, KYC clones, and reported phishing targets.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Common Phishing Warning Signs Section -->
+  <section id="phishing-signs" class="section section-alternate">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">Awareness</span>
+        <h2>How to Spot a Deceptive Link</h2>
+        <p>Attackers rely on urgency and clever domain mimicry. Keep these red flags in mind when reviewing unverified messages.</p>
+      </div>
+
+      <div class="guides-grid">
+        <div class="guide-card">
+          <div class="guide-tag">Impersonation</div>
+          <h4>Look-alike Domain Names</h4>
+          <p>Scammers insert hyphens or subtle misspellings (e.g. <code>secure-bank-login.com</code> instead of <code>bank.com</code>) to trick busy users.</p>
+        </div>
+
+        <div class="guide-card">
+          <div class="guide-tag">False Urgency</div>
+          <h4>Urgent Account Actions</h4>
+          <p>Phrases like "Account suspended in 2 hours" or "Immediate KYC required" are engineered to make you click without verifying the URL.</p>
+        </div>
+
+        <div class="guide-card">
+          <div class="guide-tag">Unencrypted HTTP</div>
+          <h4>Missing HTTPS Security</h4>
+          <p>Any portal requesting passwords, credit cards, or identity proofs over unencrypted <code>http://</code> should be treated as dangerous.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">Answers</span>
+        <h2>Frequently Asked Questions</h2>
+        <p>Have questions about how link analysis and risk scores work?</p>
+      </div>
+
+      <div class="faq-container">
+        
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What does the Risk Score mean?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>The risk score ranges from 0 (lowest risk) to 100 (highest risk). A score above 70 indicates a high probability of fraud or phishing. A score between 35 and 70 represents suspicious or unverified characteristics.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Can a brand new legitimate website be marked suspicious?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>If a new website uses an unencrypted connection, an abused domain extension, or multiple hyphens, it may receive a moderate caution score until verified.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What should I do if a link is flagged as Fraud?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Do not open the link or enter any credentials. If received via SMS or email, report the message as spam/phishing and delete it immediately.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Is LinkShield completely free?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, LinkShield is a free public utility built to foster cyber hygiene and protect internet users against scam portals.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="nav-brand">
+          <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span>Link<strong>Shield</strong></span>
+        </div>
+        <p class="footer-desc">
+          Empowering users with instant link verification and heuristic fraud detection to safeguard everyday web navigation.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Quick Links</h5>
+        <ul class="footer-links">
+          <li><a href="#scanner">URL Scanner</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#phishing-signs">Phishing Signs</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Cyber Safety</h5>
+        <ul class="footer-links">
+          <li>Never share OTPs or passwords</li>
+          <li>Verify official banking URLs</li>
+          <li>Avoid clicking unsolicited SMS links</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 LinkShield Platform. Built for cyber safety awareness.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
