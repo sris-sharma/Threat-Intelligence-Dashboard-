@@ -10,6 +10,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Home route
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+
 // Path to database
 const dbPath = path.join(__dirname, 'db.json');
 
@@ -212,6 +218,6 @@ app.get('/api/check', (req, res) => {
   res.json(result);
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0' , () => {
   console.log(`LinkShield website running at http://localhost:${PORT}`);
 });
