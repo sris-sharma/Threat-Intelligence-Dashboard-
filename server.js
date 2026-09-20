@@ -217,9 +217,7 @@ app.get('/api/check', (req, res) => {
   const result = analyzeLink(url);
   res.json(result);
 });
-app.get('/', (req, res) => {
-  res.send('LinkShield API is running successfully!');
-});
-app.listen(PORT, () => {
+
+app.listen(PORT, '0.0.0.0' , () => {
   console.log(`LinkShield website running at http://localhost:${PORT}`);
 });
