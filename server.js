@@ -5,10 +5,14 @@ const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+// Home route
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Path to database
 const dbPath = path.join(__dirname, 'db.json');
